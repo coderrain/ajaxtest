@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width">
+	<style type="text/css">
+		*{
+			margin:0;
+			padding: 0;
+			list-style: none;
+		}
+		ul{
+			overflow: hidden;
+		}
+		li{
+			width: 50%;
+			float: left;
+			text-align: center;
+		}
+		li strong{
+			display: block;
+		}
+		img{
+			width: 100%;
+		}
+		#btn{
+			height: 45px;
+			line-height: 45px;
+			background: blue;
+			text-align: center;
+			color: #fff;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<ul id="main">
+		<!-- <li>
+			<img src="https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg">
+			<strong>我的连衣裙</strong>
+		</li>
+		<li>
+			<img src="https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg">
+			<strong>我的连衣裙</strong>
+		</li>
+		<li>
+			<img src="https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg">
+			<strong>我的连衣裙</strong>
+		</li>
+		<li>
+			<img src="https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg">
+			<strong>我的连衣裙</strong>
+		</li> -->
+	</ul>
+	<div id="btn">加载更多>></div>
+	<script type="text/javascript">
+		(function(){
+			var pageSize = 0;
+			function ajax(){
+				//1.获取xhr实例
+				var xhr = new XMLHttpRequest();
+				//2.链接
+				xhr.open('get', '/shop?pageSize='+ pageSize +'&count=4', false);
+				//3.监听状态
+				xhr.onreadystatechange = function(){
+					if(xhr.readyState == 4 && xhr.status == 200){
+						//console.log(xhr.responseText)
+						var result = JSON.parse(xhr.responseText)
+						console.log(result)
+						var str = '';
+						if(result.code == '1'){
+							pageSize++;
+							if(result.data.length < 4){
+								document.getElementById('btn').style.display = 'none';
+							}
+							for(var i=0;i<result.data.length;i++){
+								str += "<li><img src='"+ result.data[i].imgUrl+"'><strong>"+ result.data[i].title +"</strong></li>"
+							}
+							document.getElementById('main').innerHTML += str;
+						}
+
+					}
+				}
+				xhr.send(null)
+			}
+			ajax();
+
+			document.getElementById('btn').onclick = function(){
+				ajax();
+			}
+		})()
+	</script>
+</body>
+</html>
