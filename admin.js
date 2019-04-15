@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var swig = require('swig');
 var bodyPaeser =require('body-parser')
 
 app.use(bodyPaeser.urlencoded({
@@ -8,7 +9,24 @@ app.use(bodyPaeser.urlencoded({
 }));
 
 
+swig.setDefaults({
+  cache: false
+})
+app.set('view cache', false);
+app.set('views','./views/');
+app.set('view engine','html');
+app.engine('html', swig.renderFile);
+
+
 app.use(express.static('./'))
+
+// 路由（控制器）
+app.get('/about', function(req, res, next){
+	res.render('about',{
+		title: 'about月面'
+	})
+})
+
 
 var data = [{
 		title: '小说',
@@ -34,23 +52,113 @@ app.post('/login', function(req, res, next){
 	}
 })
 
+app.get('/shop', function(req, res, next){
+	var pageSize = req.query.pageSize || 0;
+	var count = req.query.count || 5;
+	console.log(pageSize)
+	console.log(count)
+
+	var data = [{
+		id:1,
+		title: '连衣裙女士',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:2,
+		title: '连衣裙女士132',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:3,
+		title: '连衣裙女士130',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:4,
+		title: '连衣裙女士129',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:5,
+		title: '连衣裙女士128',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:6,
+		title: '连衣裙女士127',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:7,
+		title: '连衣裙女士126',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:8,
+		title: '连衣裙女士125',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:9,
+		title: '连衣裙女士124',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:10,
+		title: '连衣裙女士123',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:11,
+		title: '连衣裙女士122',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:12,
+		title: '连衣裙女士121',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:13,
+		title: '连衣裙女士120',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:14,
+		title: '连衣裙女士119',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:15,
+		title: '连衣裙女士118',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:16,
+		title: '连衣裙女士117',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:17,
+		title: '连衣裙女士116',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:18,
+		title: '连衣裙女士115',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:19,
+		title: '连衣裙女士114',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:20,
+		title: '连衣裙女士113',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:21,
+		title: '连衣裙女士112',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	},{
+		id:22,
+		title: '连衣裙女士111',
+		imgUrl: 'https://img14.360buyimg.com/mobilecms/s372x372_jfs/t1/14775/9/13071/56020/5c9deb5eE2faae72e/a128fde5d88ad47b.jpg!q70.dpg'
+	}]
+	res.json({
+		code: 1,
+		data: data.slice(pageSize*count,pageSize*count+parseInt(count))
+	})
+
+})
+
 
 app.get('/news', function(req, res, next){
 	res.json({
-		code:1,
-		data: [{
-			id:1,
-			title: '第一条新闻'
-		},{
-			id:2,
-			title: '第2条新闻'
-		},{
-			id:2,
-			title: '第3条新闻'
-		},{
-			id:3,
-			title: '第4条新闻'
-		}]
+		code:0,
+		data: []
 	})
 })
 
