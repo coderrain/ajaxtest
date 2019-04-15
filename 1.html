@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	我是首页<br />登录：
+	<div id="c">
+		<input type="text" name="" placeholder="用户名" id="username">
+		<input type="password" name="" placeholder="密码" id="pwd">
+		<input type="submit" name="" id="loginBtn" value="登录">
+	</div>
+	<div id="abc"></div>
+
+	<script type="text/javascript">
+		/*
+			ajax(异步的javascript和xml)
+				xml: 数据格式
+				异步：可以同时进行，解决成本时间，通过一个排队的例子
+
+			XMLHttpRequest:这个对象（构造函数）可以实现前端和后端的数据交互
+		*/
+
+
+		var  text = '';
+	function ajax(){
+		var xhr = new XMLHttpRequest();
+		console.log(xhr);
+		//打开链接
+		var username = document.getElementById('username').value;
+		var pwd = document.getElementById('pwd').value;
+		xhr.open('get', '/login', true)
+console.log('/login?username='+username + '&password=' + pwd)
+		;
+		//监听状态
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4 && xhr.status == 200){
+				if(xhr.responseText != '登录失败'){
+					c.style.display = 'none';
+				}
+				console.log(2)
+				text = xhr.responseText;
+			}
+		}
+		//发送请求
+		xhr.send('foo=bar&lorem=ipsum');
+	}
+
+	/*setTimeout(function(){
+		ajax()
+	},3000)*/
+	loginBtn.onclick = function(){
+		console.log(1)
+		ajax()
+		console.log(text)
+	}
+	</script>
+</body>
+</html>
